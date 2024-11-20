@@ -302,7 +302,7 @@ Para crear la vista de `show` es necesario crear un fichero o archivo dentro de 
 ## Paso 7: Cargar las migraciones a la base de datos
 Recordar que se debe crear la base de datos en `PhpMyAdmin` con el mismo nombre que tiene en el archivo `.env`.
 
-```lua
+```.env
 DB_DATABASE=nombre_de_su_base_de_datos
 ```
 Luego se debe cargar la base de datos en `PhpMyAdmin` para que funcione correctamente con su proyecto.
