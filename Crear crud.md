@@ -298,3 +298,21 @@ Para crear la vista de `show` es necesario crear un fichero o archivo dentro de 
 </div>
 @endsection
 ```
+
+## Paso 7: Cargar las migraciones a la base de datos
+Recordar que se debe crear la base de datos en `PhpMyAdmin` con el mismo nombre que tiene en el archivo `.env`.
+
+```lua
+DB_DATABASE=nombre_de_su_base_de_datos
+```
+Luego se debe cargar la base de datos en `PhpMyAdmin` para que funcione correctamente con su proyecto.
+
+Si se desean cargar solo las migraciones pendientes, ejecutar:
+```bash
+php artisan migrate
+```
+
+Si se desea cargar la base de datos junto a las migraciones como tambien las semillas desde cero, ejecutar:
+```bash
+php artisan migrate:fresh --seed
+```
