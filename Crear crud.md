@@ -135,39 +135,41 @@ Para crear la vista de `index` es necesario crear un fichero o archivo dentro de
 
 @section('content')
 <div class="container">
-    <h1>Create Room</h1>
+    <h1>Rooms</h1>
+    <a href="{{ route('rooms.create') }}" class="btn btn-primary mb-3">Add Room</a>
 
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
+    @if(session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-    <form action="{{ route('rooms.store') }}" method="POST">
-        @csrf
-
-        <div class="form-group mb-3">
-            <label for="name">Room Name</label>
-            <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}" placeholder="Enter room name" required>
-        </div>
-
-        <div class="form-group mb-3">
-            <label for="capacity">Capacity</label>
-            <input type="number" name="capacity" id="capacity" class="form-control" value="{{ old('capacity') }}" placeholder="Enter room capacity" min="1" required>
-        </div>
-
-        <div class="form-group mb-3">
-            <label for="location">Location</label>
-            <input type="text" name="location" id="location" class="form-control" value="{{ old('location') }}" placeholder="Enter room location" required>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Save Room</button>
-        <a href="{{ route('rooms.index') }}" class="btn btn-secondary">Cancel</a>
-    </form>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Capacity</th>
+                <th>Location</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($rooms as $room)
+                <tr>
+                    <td>{{ $room->name }}</td>
+                    <td>{{ $room->capacity }}</td>
+                    <td>{{ $room->location }}</td>
+                    <td>
+                        <a href="{{ route('rooms.show', $room->id) }}" class="btn btn-info btn-sm">View</a>
+                        <a href="{{ route('rooms.edit', $room->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                        <form action="{{ route('rooms.destroy', $room->id) }}" method="POST" style="display:inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
 </div>
 @endsection
 ```
